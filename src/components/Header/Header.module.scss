@@ -1,0 +1,93 @@
+@import '../../scss/variables';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  align-items: center;
+  &:hover {
+    color: $them-color;
+  }
+}
+
+.logoIcon {
+  text-align: center;
+  font-size: 56px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-size: 26px;
+  text-transform: uppercase;
+  &Link {
+    padding: 10px 0;
+    &:hover {
+      color: $them-color;
+    }
+    &:active {
+      border-bottom: 3px solid $them-color;
+    }
+  }
+}
+
+.other {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.searchIcon {
+  position: relative;
+  left: 20px;
+}
+
+.search {
+  background: transparent;
+  padding: 10px 20px 10px 40px;
+  border-bottom: 2px solid white;
+  color: $them-color;
+  text-transform: uppercase;
+  font-size: 18px;
+  &::placeholder {
+    opacity: 0.5;
+    color: rgb(255, 255, 255);
+  }
+  &:focus {
+    border-bottom: 2px solid $them-color;
+  }
+}
+
+.bookmark {
+  font-size: 30px;
+  cursor: pointer;
+  &:hover {
+    color: $them-color;
+  }
+}
+
+.loginButton {
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  background-color: white;
+  color: black;
+  letter-spacing: 1px;
+  &:hover {
+    background-color: $them-color;
+  }
+}
