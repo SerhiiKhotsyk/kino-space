@@ -1,36 +1,54 @@
-import styles from './Films.module.scss';
-import { TfiArrowCircleLeft } from 'react-icons/tfi';
 import { Link } from 'react-router-dom';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { TfiArrowCircleLeft } from 'react-icons/tfi';
+
+import styles from './Films.module.scss';
+import { moviesGenres } from '../../data/moviesData';
+import Categories from '../../components/Categories/Categories';
+import MovieCard from '../../components/MovieCard/MovieCard';
+import { fetchFilms } from '../../redux/FilmsSlice';
+import MyButton from '../../components/MyButton';
 
 const Films = () => {
+  const dispatch = useDispatch();
+  const { filmsData, status, page } = useSelector((state) => state.films);
+  const isLoading = status === 'loading';
+
+  useEffect(() => {
+    dispatch(fetchFilms());
+  }, []);
+
+  const handleShowMoreFilms = () => {
+    const nextPage = page + 1;
+    console.log(nextPage);
+    dispatch(fetchFilms(nextPage));
+  };
+
   return (
     <div className={styles.films}>
-      <div className={styles.categories}>
-        <Link className={styles.category}>
-          Жанр <IoIosArrowDown className={styles.category__showMoreIcon} />{' '}
-          <IoIosArrowUp className={styles.category__showLessIcon} />
-        </Link>
-        <Link className={styles.category}>
-          Актори <IoIosArrowDown className={styles.category__showMoreIcon} />
-        </Link>
-        <Link className={styles.category}>
-          Режиссер <IoIosArrowDown className={styles.category__showMoreIcon} />
-        </Link>
-        <Link className={styles.category}>
-          Країна <IoIosArrowDown className={styles.category__showMoreIcon} />
-        </Link>
-        <Link className={styles.category}>
-          Рік <IoIosArrowDown className={styles.category__showMoreIcon} />
-        </Link>
-      </div>
+      <Categories moviesGenres={moviesGenres} />
 
       <h1 className={styles.films__title}>
         <Link to="#">
           <TfiArrowCircleLeft className={styles.films__titleIcon} />
-        </Link>{' '}
+        </Link>
         Всі фільми на <span>kino space</span>
       </h1>
+
+      <div className={styles.films__items}>
+        {filmsData.map((obj) => (
+          <div key={obj.id} className={styles.films__item}>
+            <MovieCard obj={obj} loading={isLoading} />
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.showMore}>
+        <div onClick={handleShowMoreFilms}>
+          <MyButton>Показати більше</MyButton>
+        </div>
+      </div>
     </div>
   );
 };

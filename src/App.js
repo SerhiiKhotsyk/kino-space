@@ -4,6 +4,7 @@ import Home from './pages/Home/Home';
 import './app.scss';
 import Footer from './components/Footer/Footer';
 import Films from './pages/Films/Films';
+import Series from './pages/Series/Series';
 
 export const App = () => {
   return (
@@ -12,6 +13,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/films" element={<Films />} />
+        <Route path="/series" element={<Series />} />
       </Routes>
       <Footer />
     </div>

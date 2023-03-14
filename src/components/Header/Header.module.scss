@@ -38,8 +38,6 @@
     padding: 10px 0;
     &:hover {
       color: $them-color;
-    }
-    &:active {
       border-bottom: 3px solid $them-color;
     }
   }
@@ -82,12 +80,15 @@
 
 .loginButton {
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 50px;
+  border: 2px solid white;
   text-transform: uppercase;
-  background-color: white;
-  color: black;
+  background-color: transparent;
+  color: rgb(255, 255, 255);
   letter-spacing: 1px;
   &:hover {
+    border-color: $them-color;
     background-color: $them-color;
+    color: rgb(0, 0, 0);
   }
 }

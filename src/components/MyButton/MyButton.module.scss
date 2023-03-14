@@ -1,0 +1,16 @@
+@import '../../scss/variables';
+
+.myButton {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 2px solid white;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: rgb(255, 255, 255);
+  letter-spacing: 1px;
+  &:hover {
+    border-color: $them-color;
+    background-color: $them-color;
+    color: rgb(0, 0, 0);
+  }
+}
