@@ -6,6 +6,11 @@ export const fetchFilms = createAsyncThunk('films/fetchFilms', async (page = 1) 
   return data;
 });
 
+export const fetchMoreFilms = createAsyncThunk('films/fetchMoreFilms', async (page = 1) => {
+  const { data } = await myAxios.get(`/discover/movie?page=${page}`);
+  return data;
+});
+
 const initialState = {
   filmsData: [],
   page: 0,
@@ -19,15 +24,32 @@ const filmsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchFilms.pending, (state) => {
+      state.filmsData = [];
       state.status = 'loading';
     });
     builder.addCase(fetchFilms.fulfilled, (state, action) => {
-      state.filmsData = [...state.filmsData, ...action.payload.results];
+      state.filmsData = action.payload.results;
       state.page = action.payload.page;
       state.totalPages = action.payload.total_pages;
       state.status = 'done';
     });
     builder.addCase(fetchFilms.rejected, (state, action) => {
+      state.filmsData = [];
+      state.page = 0;
+      state.totalPages = 0;
+      state.status = 'error';
+    });
+
+    builder.addCase(fetchMoreFilms.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchMoreFilms.fulfilled, (state, action) => {
+      state.filmsData = [...state.filmsData, ...action.payload.results];
+      state.page = action.payload.page;
+      state.totalPages = action.payload.total_pages;
+      state.status = 'done';
+    });
+    builder.addCase(fetchMoreFilms.rejected, (state, action) => {
       state.filmsData = [];
       state.page = 0;
       state.totalPages = 0;

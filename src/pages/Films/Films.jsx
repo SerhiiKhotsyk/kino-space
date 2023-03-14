@@ -7,8 +7,9 @@ import styles from './Films.module.scss';
 import { moviesGenres } from '../../data/moviesData';
 import Categories from '../../components/Categories/Categories';
 import MovieCard from '../../components/MovieCard/MovieCard';
-import { fetchFilms } from '../../redux/FilmsSlice';
+import { fetchFilms, fetchMoreFilms } from '../../redux/FilmsSlice';
 import MyButton from '../../components/MyButton';
+import { fetchCategories } from '../../redux/CategoriesSlice';
 
 const Films = () => {
   const dispatch = useDispatch();
@@ -17,12 +18,12 @@ const Films = () => {
 
   useEffect(() => {
     dispatch(fetchFilms());
+    dispatch(fetchCategories());
   }, []);
 
   const handleShowMoreFilms = () => {
     const nextPage = page + 1;
-    console.log(nextPage);
-    dispatch(fetchFilms(nextPage));
+    dispatch(fetchMoreFilms(nextPage));
   };
 
   return (
