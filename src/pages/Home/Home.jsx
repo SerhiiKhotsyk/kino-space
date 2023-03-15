@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom';
 import { TfiArrowCircleRight } from 'react-icons/tfi';
 
 import styles from './Home.module.scss';
-import { bgImages } from '../../data/moviesData';
 import BgSlider from '../../components/BgSlider/BgSlider';
 import MoviesSlider from '../../components/MoviesSlider/MoviesSlider';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchTopRatingFilms,
@@ -29,7 +28,7 @@ const Home = () => {
 
   return (
     <div className={styles.home}>
-      <BgSlider bgImages={bgImages} />
+      <BgSlider />
       <div className={styles.films}>
         <div className={styles.films__block}>
           <h2 className={styles.filmsTitle}>

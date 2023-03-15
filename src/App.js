@@ -5,7 +5,6 @@ import './scss/app.scss';
 import Footer from './components/Footer/Footer';
 import Films from './pages/Films/Films';
 import Series from './pages/Series/Series';
-import { useState } from 'react';
 
 export const App = () => {
   return (

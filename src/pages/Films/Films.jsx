@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TfiArrowCircleLeft } from 'react-icons/tfi';
 
 import styles from './Films.module.scss';
-import { moviesGenres } from '../../data/moviesData';
 import Categories from '../../components/Categories/Categories';
 import MovieCard from '../../components/MovieCard/MovieCard';
 import { fetchFilms, fetchMoreFilms } from '../../redux/FilmsSlice';
@@ -29,7 +28,7 @@ const Films = () => {
 
   return (
     <div className={styles.films}>
-      <Categories moviesGenres={moviesGenres} />
+      <Categories />
 
       <h1 className={styles.films__title}>
         <Link to="#">

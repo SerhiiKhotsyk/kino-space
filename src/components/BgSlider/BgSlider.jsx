@@ -11,7 +11,7 @@ import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper';
 import { useEffect, useState } from 'react';
 import { myAxios } from '../../myAxios';
 
-const BgSlider = ({ bgImages }) => {
+const BgSlider = () => {
   const [latesFilms, setLatestFilms] = useState([]);
   const [loading, setLoading] = useState(true);
 
