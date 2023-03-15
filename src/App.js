@@ -1,10 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
-import './app.scss';
+import './scss/app.scss';
 import Footer from './components/Footer/Footer';
 import Films from './pages/Films/Films';
 import Series from './pages/Series/Series';
+import { useState } from 'react';
 
 export const App = () => {
   return (

@@ -2,41 +2,61 @@ import { Link } from 'react-router-dom';
 import { TfiArrowCircleRight } from 'react-icons/tfi';
 
 import styles from './Home.module.scss';
-import { bgImages, filmsData } from '../../data/moviesData';
+import { bgImages } from '../../data/moviesData';
 import BgSlider from '../../components/BgSlider/BgSlider';
 import MoviesSlider from '../../components/MoviesSlider/MoviesSlider';
 import { useEffect, useState } from 'react';
-import { myAxios } from '../../myAxios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchTopRatingFilms,
+  fetchTopViewsFilms,
+  fetchUpcomingFilms,
+} from '../../redux/FilmsSlice';
 
 const Home = () => {
-  const [popularFilms, setPopularFilms] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const popularFilms = useSelector((state) => state.films.popularFilms);
+  const status = useSelector((state) => state.films.status);
+  const topRatingFilms = useSelector((state) => state.films.topRatingFilms);
+  const upcomingFims = useSelector((state) => state.films.upcomingFims);
+  const isLoading = status === 'loading';
 
   useEffect(() => {
-    myAxios
-      .get('movie/popular')
-      .then((resp) => {
-        setPopularFilms(resp.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        alert('Невдалося отримати фільми');
-        console.log(err);
-        setLoading(false);
-      });
+    dispatch(fetchTopViewsFilms());
+    dispatch(fetchTopRatingFilms());
+    dispatch(fetchUpcomingFilms());
   }, []);
 
   return (
     <div className={styles.home}>
       <BgSlider bgImages={bgImages} />
       <div className={styles.films}>
-        <h2 className={styles.filmsTitle}>
-          <Link to="/" className={styles.titleLink}>
-            ТОП переглядів <TfiArrowCircleRight className={styles.titleLink__arrow} />
-          </Link>
-        </h2>
+        <div className={styles.films__block}>
+          <h2 className={styles.filmsTitle}>
+            <Link to="/" className={styles.titleLink}>
+              ТОП переглядів <TfiArrowCircleRight className={styles.titleLink__arrow} />
+            </Link>
+          </h2>
+          <MoviesSlider moviesData={popularFilms} loading={isLoading} />
+        </div>
 
-        <MoviesSlider moviesData={popularFilms} loading={loading} />
+        <div className={styles.films__block}>
+          <h2 className={styles.filmsTitle}>
+            <Link to="/" className={styles.titleLink}>
+              Найвищий рейтинг <TfiArrowCircleRight className={styles.titleLink__arrow} />
+            </Link>
+          </h2>
+          <MoviesSlider moviesData={topRatingFilms} loading={isLoading} />
+        </div>
+
+        <div className={styles.films__block}>
+          <h2 className={styles.filmsTitle}>
+            <Link to="/" className={styles.titleLink}>
+              Скоро в кінотеатрах <TfiArrowCircleRight className={styles.titleLink__arrow} />
+            </Link>
+          </h2>
+          <MoviesSlider moviesData={upcomingFims} loading={isLoading} />
+        </div>
       </div>
     </div>
   );

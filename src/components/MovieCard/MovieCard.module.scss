@@ -82,3 +82,45 @@
   font-size: 18px;
   padding: 10px;
 }
+
+.info__rating {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  color: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  // &__bgRed {
+  //   background: rgb(119, 44, 44);
+  // }
+  // &__bgYellow {
+  //   background: rgb(134, 134, 49);
+  // }
+  // &__bgYellowGreen {
+  //   background: rgb(94, 128, 46);
+  // }
+  // &__bgGreen {
+  //   background: rgb(47, 129, 61);
+  // }
+}
+
+// .bgRed__info__rating {
+//   background: rgb(119, 44, 44);
+// }
+// .bgYellow__info__rating {
+//   background: rgb(134, 134, 49);
+// }
+// .bgYellowGreen__info__rating {
+//   background: rgb(94, 128, 46);
+// }
+// .bgGreen__info__rating {
+//   background: rgb(47, 129, 61);
+// }
+
+// .bgGrey__info__rating {
+//   background: rgb(78, 78, 78);
+// }

@@ -27,3 +27,15 @@
     color: $them-color;
   }
 }
+
+@media (max-width: 700px) {
+  .series {
+    margin-top: 300px;
+  }
+}
+
+@media (max-width: 500px) {
+  .series {
+    margin-top: 150px;
+  }
+}

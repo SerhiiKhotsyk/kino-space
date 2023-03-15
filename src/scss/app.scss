@@ -1,4 +1,5 @@
-@import './scss/variables';
+@import 'components/all';
+@import 'variables';
 
 body {
   background: linear-gradient(-45deg, #82412d, #5c1933, #0e465b, #0f5e4c);
@@ -26,13 +27,18 @@ body {
   min-height: 100vh;
 }
 
-.sliderTrack {
-  height: 5px;
-  background: $them-color;
-  &-0 {
-    background: gray;
-  }
-  &-2 {
-    background: gray;
-  }
+.bgRed {
+  background-color: #9b3434;
+}
+.bgYellow {
+  background-color: #d9c44d;
+}
+.bgYellowGreen {
+  background-color: #98b135;
+}
+.bgGreen {
+  background-color: #32a330;
+}
+.bgGrey {
+  background-color: #868686;
 }

@@ -1,9 +1,10 @@
-import styles from './MovieCard.module.scss';
-
+import Skeleton from 'react-loading-skeleton';
 import { HiOutlineBookmark } from 'react-icons/hi';
 import { FaPlay } from 'react-icons/fa';
-import Skeleton from 'react-loading-skeleton';
+
+import styles from './MovieCard.module.scss';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { bgColor } from './utils/ratingBgColor';
 
 const MovieCard = ({ obj, loading }) => {
   return (
@@ -20,6 +21,9 @@ const MovieCard = ({ obj, loading }) => {
           </div>
           <div className={styles.movieCard__info}>
             <HiOutlineBookmark className={styles.info__bookmark} />
+            <div className={`${styles.info__rating} ${bgColor(obj.vote_average)}`}>
+              <span className={styles.info__ratingNumber}>{obj.vote_average}</span>
+            </div>
             <div className={styles.info__playBtn}>
               <FaPlay className={styles.playBtn__icon} />
             </div>

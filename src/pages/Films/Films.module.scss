@@ -11,6 +11,7 @@
 .films__title {
   font-size: 32px;
   letter-spacing: 2px;
+  line-height: 40px;
   font-family: 'Roboto', sans-serif;
   margin-bottom: 20px;
   span {
@@ -75,6 +76,9 @@
 }
 
 @media (max-width: 700px) {
+  .films {
+    margin-top: 300px;
+  }
   .films__items {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -91,6 +95,17 @@
   .films__item {
     width: 350px;
     height: 550px;
+  }
+  .films__title {
+    font-size: 26px;
+    letter-spacing: 1px;
+    line-height: 32px;
+  }
+}
+
+@media (max-width: 500px) {
+  .films {
+    margin-top: 150px;
   }
 }
 
