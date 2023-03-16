@@ -1,0 +1,136 @@
+@import '../../scss/variables';
+
+.movie {
+  width: 100%;
+  margin-top: 170px;
+}
+
+.goBack {
+  font-size: 28px;
+  display: inline-flex;
+  align-items: center;
+  padding: 20px;
+  &:hover {
+    color: $them-color;
+  }
+  span {
+    margin-left: 10px;
+  }
+}
+
+.mainInfo {
+  position: relative;
+  width: 100%;
+  background-size: cover;
+  background-position: 50% 50%;
+  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(40, 40, 40, 0.7);
+    z-index: 0;
+  }
+}
+
+.poster__imgContainer {
+  height: 580px;
+  min-width: 350px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-right: 25px;
+  z-index: 1;
+}
+
+.poster__img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.textBlock {
+  padding: 30px 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.textBlock__title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.textBlock__genres {
+  margin-bottom: 20px;
+}
+
+.textBlock__rating {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.textBlock__ratingItem {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #6d6d6d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-right: 20px;
+  span {
+    font-size: 10px;
+    position: relative;
+    top: -5px;
+  }
+}
+
+.textBlock__bookmarck {
+  margin-left: 20px;
+  font-size: 32px;
+  &:hover {
+    color: $them-color;
+    cursor: pointer;
+  }
+}
+
+.textBlock__overview,
+.textBlock__budget,
+.textBlock__revenue {
+  margin-bottom: 30px;
+  h5 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+  p {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+.textBlock__revenue {
+  margin-bottom: 0;
+}
+
+@media (max-width: 850px) {
+  .poster__imgContainer {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .movie {
+    margin-top: 260px;
+  }
+}

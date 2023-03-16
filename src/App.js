@@ -5,6 +5,8 @@ import './scss/app.scss';
 import Footer from './components/Footer/Footer';
 import Films from './pages/Films/Films';
 import Series from './pages/Series/Series';
+import Movie from './pages/Movie/Movie';
+import TopViewsFilms from './pages/TopViewsFilms/TopViewsFilms';
 
 export const App = () => {
   return (
@@ -14,6 +16,8 @@ export const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/films" element={<Films />} />
         <Route path="/series" element={<Series />} />
+        <Route path="/movie/:id" element={<Movie />} />
+        <Route path="/top-views-films" element={<TopViewsFilms />} />
       </Routes>
       <Footer />
     </div>

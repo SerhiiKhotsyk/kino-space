@@ -1,5 +1,6 @@
 import styles from './MoviesSlider.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Link } from 'react-router-dom';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -22,7 +23,9 @@ const MoviesSlider = ({ moviesData, loading }) => {
           className={`mySwiper ${styles.mySwiper}`}>
           {moviesData.map((obj) => (
             <SwiperSlide key={obj.id} className={styles.moviesSlide}>
-              <MovieCard obj={obj} loading={loading} />
+              <Link to={`/movie/${obj.id}`}>
+                <MovieCard obj={obj} loading={loading} />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

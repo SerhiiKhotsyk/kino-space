@@ -9,7 +9,6 @@ import MovieCard from '../../components/MovieCard/MovieCard';
 import { fetchFilms, fetchMoreFilms } from '../../redux/FilmsSlice';
 import MyButton from '../../components/MyButton';
 import { fetchCategories } from '../../redux/CategoriesSlice';
-import ReactSlider from 'react-slider';
 
 const Films = () => {
   const dispatch = useDispatch();
