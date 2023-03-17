@@ -11,31 +11,13 @@ export const fetchMoreFilms = createAsyncThunk('films/fetchMoreFilms', async (pa
   return data;
 });
 
-export const fetchTopViewsFilms = createAsyncThunk('films/fetchTopViewsFilms', async () => {
-  const { data } = await myAxios.get('movie/popular');
-  return data;
-});
-
-export const fetchTopRatingFilms = createAsyncThunk('films/fetchTopRatingFilms', async () => {
-  const { data } = await myAxios.get('movie/top_rated');
-  return data;
-});
-
-export const fetchUpcomingFilms = createAsyncThunk('films/fetchUpcomingFilms', async () => {
-  const { data } = await myAxios.get('movie/upcoming');
-  return data;
-});
-
 export const fetchMovieDetails = createAsyncThunk('films/fetchMovieDetails', async (id) => {
   const { data } = await myAxios.get(`/movie/${id}`);
   return data;
 });
 
 const initialState = {
-  filmsData: [],
-  popularFilms: [],
-  topRatingFilms: [],
-  upcomingFims: [],
+  films: [],
   movieDetails: {},
   page: 0,
   totalPages: 0,
@@ -49,17 +31,17 @@ const filmsSlice = createSlice({
   extraReducers: (builder) => {
     // get all films
     builder.addCase(fetchFilms.pending, (state) => {
-      state.filmsData = [];
+      state.films = [];
       state.status = 'loading';
     });
     builder.addCase(fetchFilms.fulfilled, (state, action) => {
-      state.filmsData = action.payload.results;
+      state.films = action.payload.results;
       state.page = action.payload.page;
       state.totalPages = action.payload.total_pages;
       state.status = 'done';
     });
     builder.addCase(fetchFilms.rejected, (state) => {
-      state.filmsData = [];
+      state.films = [];
       state.page = 0;
       state.totalPages = 0;
       state.status = 'error';
@@ -70,57 +52,15 @@ const filmsSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(fetchMoreFilms.fulfilled, (state, action) => {
-      state.filmsData = [...state.filmsData, ...action.payload.results];
+      state.films = [...state.films, ...action.payload.results];
       state.page = action.payload.page;
       state.totalPages = action.payload.total_pages;
       state.status = 'done';
     });
     builder.addCase(fetchMoreFilms.rejected, (state) => {
-      state.filmsData = [];
+      state.films = [];
       state.page = 0;
       state.totalPages = 0;
-      state.status = 'error';
-    });
-
-    // get most popular films
-    builder.addCase(fetchTopViewsFilms.pending, (state) => {
-      state.status = 'loading';
-      state.popularFilms = [];
-    });
-    builder.addCase(fetchTopViewsFilms.fulfilled, (state, action) => {
-      state.popularFilms = action.payload.results;
-      state.status = 'done';
-    });
-    builder.addCase(fetchTopViewsFilms.rejected, (state) => {
-      state.popularFilms = [];
-      state.status = 'error';
-    });
-
-    // get top ratings films
-    builder.addCase(fetchTopRatingFilms.pending, (state) => {
-      state.status = 'loading';
-      state.topRatingFilms = [];
-    });
-    builder.addCase(fetchTopRatingFilms.fulfilled, (state, action) => {
-      state.topRatingFilms = action.payload.results;
-      state.status = 'done';
-    });
-    builder.addCase(fetchTopRatingFilms.rejected, (state) => {
-      state.topRatingFilms = [];
-      state.status = 'error';
-    });
-
-    // get upcoming films
-    builder.addCase(fetchUpcomingFilms.pending, (state) => {
-      state.status = 'loading';
-      state.upcomingFims = [];
-    });
-    builder.addCase(fetchUpcomingFilms.fulfilled, (state, action) => {
-      state.upcomingFims = action.payload.results;
-      state.status = 'done';
-    });
-    builder.addCase(fetchUpcomingFilms.rejected, (state) => {
-      state.upcomingFims = [];
       state.status = 'error';
     });
 

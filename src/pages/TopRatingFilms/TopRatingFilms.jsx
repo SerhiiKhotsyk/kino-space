@@ -1,28 +1,27 @@
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { TfiArrowCircleLeft } from 'react-icons/tfi';
-
-import styles from './Films.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Categories from '../../components/Categories/Categories';
 import MovieCard from '../../components/MovieCard/MovieCard';
-import { fetchFilms, fetchMoreFilms } from '../../redux/FilmsSlice';
 import MyButton from '../../components/MyButton';
 import { fetchCategories } from '../../redux/CategoriesSlice';
+import { fetchMoreTopRatingFilms, fetchTopRatingFilms } from '../../redux/TopRatingFilmsSlice';
+import styles from './TopRatingFilms.module.scss';
 
-const Films = () => {
+const TopRatingFilms = () => {
   const dispatch = useDispatch();
-  const { films, status, page } = useSelector((state) => state.films);
+  const { films, status, page } = useSelector((state) => state.topRatingFilms);
   const isLoading = status === 'loading';
 
   useEffect(() => {
-    dispatch(fetchFilms());
+    dispatch(fetchTopRatingFilms());
     dispatch(fetchCategories());
   }, []);
 
   const handleShowMoreFilms = () => {
     const nextPage = page + 1;
-    dispatch(fetchMoreFilms(nextPage));
+    dispatch(fetchMoreTopRatingFilms(nextPage));
   };
 
   return (
@@ -33,7 +32,7 @@ const Films = () => {
         <Link to="/">
           <TfiArrowCircleLeft className={styles.films__titleIcon} />
         </Link>
-        Всі фільми на <span>kino space</span>
+        Фільми з найвищим рейтингом
       </h1>
 
       <div className={styles.films__items}>
@@ -55,4 +54,4 @@ const Films = () => {
   );
 };
 
-export default Films;
+export default TopRatingFilms;

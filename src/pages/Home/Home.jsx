@@ -6,22 +6,20 @@ import BgSlider from '../../components/BgSlider/BgSlider';
 import MoviesSlider from '../../components/MoviesSlider/MoviesSlider';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchTopRatingFilms,
-  fetchTopViewsFilms,
-  fetchUpcomingFilms,
-} from '../../redux/FilmsSlice';
+import { fetchFilms } from '../../redux/FilmsSlice';
+import { fetchTopRatingFilms } from '../../redux/TopRatingFilmsSlice';
+import { fetchUpcomingFilms } from '../../redux/UpcomingFilmsSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const popularFilms = useSelector((state) => state.films.popularFilms);
+  const popularFilms = useSelector((state) => state.films.films);
   const status = useSelector((state) => state.films.status);
-  const topRatingFilms = useSelector((state) => state.films.topRatingFilms);
-  const upcomingFims = useSelector((state) => state.films.upcomingFims);
+  const topRatingFilms = useSelector((state) => state.topRatingFilms.films);
+  const upcomingFims = useSelector((state) => state.upcomingFilms.films);
   const isLoading = status === 'loading';
 
   useEffect(() => {
-    dispatch(fetchTopViewsFilms());
+    dispatch(fetchFilms());
     dispatch(fetchTopRatingFilms());
     dispatch(fetchUpcomingFilms());
   }, []);
@@ -32,7 +30,7 @@ const Home = () => {
       <div className={styles.films}>
         <div className={styles.films__block}>
           <h2 className={styles.filmsTitle}>
-            <Link to="/" className={styles.titleLink}>
+            <Link to="/top-views-films" className={styles.titleLink}>
               ТОП переглядів <TfiArrowCircleRight className={styles.titleLink__arrow} />
             </Link>
           </h2>
@@ -41,7 +39,7 @@ const Home = () => {
 
         <div className={styles.films__block}>
           <h2 className={styles.filmsTitle}>
-            <Link to="/" className={styles.titleLink}>
+            <Link to="/top-rating-films" className={styles.titleLink}>
               Найвищий рейтинг <TfiArrowCircleRight className={styles.titleLink__arrow} />
             </Link>
           </h2>
@@ -50,7 +48,7 @@ const Home = () => {
 
         <div className={styles.films__block}>
           <h2 className={styles.filmsTitle}>
-            <Link to="/" className={styles.titleLink}>
+            <Link to="/upcoming-films" className={styles.titleLink}>
               Скоро в кінотеатрах <TfiArrowCircleRight className={styles.titleLink__arrow} />
             </Link>
           </h2>
