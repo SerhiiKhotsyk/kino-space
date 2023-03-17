@@ -8,7 +8,6 @@ import { RiArrowGoBackFill } from 'react-icons/ri';
 import styles from './Movie.module.scss';
 import { fomatMoneyNumber, genresToString, getTime, getYear, roundRating } from './utils';
 import MovieSkeleton from './MovieSkeleton';
-import { myAxios } from '../../myAxios';
 
 const Movie = () => {
   const { id } = useParams();
@@ -16,21 +15,10 @@ const Movie = () => {
   const movie = useSelector((state) => state.films.movieDetails);
   const status = useSelector((state) => state.films.status);
   let isLoading = status === 'loading';
-  let youtubKey;
 
   useEffect(() => {
     dispatch(fetchMovieDetails(id));
-  }, []);
-
-  useEffect(() => {
-    isLoading = true;
-    myAxios.get(`/movie/${id}/videos`).then((resp) => {
-      // console.log(resp);
-      youtubKey = resp.data.results[0].key;
-      console.log(youtubKey);
-      isLoading = false;
-    });
-  }, []);
+  }, [id]);
 
   if (isLoading || !movie.backdrop_path) return <MovieSkeleton />;
 
@@ -82,14 +70,7 @@ const Movie = () => {
           </div>
         </div>
       </div>
-      <div className={styles.otherInfo}>
-        <iframe
-          width="560"
-          height="315"
-          src={`https://www.youtube.com/embed/${youtubKey}`}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-      </div>
+      <div className={styles.otherInfo}></div>
     </div>
   );
 };

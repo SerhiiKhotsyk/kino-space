@@ -57,17 +57,20 @@
   align-items: center;
 }
 
+.search {
+  position: relative;
+}
+
 .searchIcon {
   position: relative;
   left: 20px;
 }
 
-.search {
+.searchInput {
   background: transparent;
   padding: 10px 20px 10px 40px;
   border-bottom: 2px solid white;
   color: $them-color;
-  text-transform: uppercase;
   font-size: 18px;
   &::placeholder {
     opacity: 0.5;
@@ -75,6 +78,30 @@
   }
   &:focus {
     border-bottom: 2px solid $them-color;
+  }
+}
+
+.searchFilms {
+  position: absolute;
+  background: rgba(61, 60, 60, 0.9);
+  overflow: auto;
+  border-radius: 20px;
+  padding: 10px 20px;
+  top: 100%;
+  width: 270px;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 5;
+  cursor: pointer;
+  &__hidden {
+    display: none;
+  }
+}
+
+.searchFilm {
+  padding: 10px 0;
+  &:hover {
+    color: $them-color;
   }
 }
 

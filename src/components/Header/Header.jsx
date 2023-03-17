@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { BsFillBookmarkStarFill } from 'react-icons/bs';
@@ -7,9 +7,17 @@ import { BsSearch } from 'react-icons/bs';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { SlClose } from 'react-icons/sl';
 import styles from './Header.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSearchedMovie, setSearchValue } from '../../redux/SearchSlice';
+import debounce from 'lodash.debounce';
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const { searchValue, searchedFilms, status } = useSelector((state) => state.search);
+  const dispatch = useDispatch();
+  const inputRef = useRef(null);
+  const isLoading = status === 'loading';
 
   const handleOpenMenu = () => {
     setIsOpen(true);
@@ -17,6 +25,35 @@ const Header = () => {
 
   const handleCloseMenu = () => {
     setIsOpen(false);
+  };
+
+  // обмежує кількість запитів на сервер - при введенні значення в інпут
+  // з інтервалом менше ніж півсекунди, запит на сервер не здійснюється
+  // був використаний хук useCallback, для зберігання посилання на функцію при монтуванні компонента
+  // щоб при кожній зміні (рендері) компонента не створювалася нова функція і не викликалася заново
+  const debounceInput = useCallback(
+    debounce((val) => {
+      dispatch(getSearchedMovie(val));
+    }, 500),
+    [],
+  );
+
+  const handleSearchQuery = (e) => {
+    if (e.target.value) {
+      setIsSearchActive(true);
+    } else {
+      setIsSearchActive(false);
+    }
+    dispatch(setSearchValue(e.target.value));
+  };
+
+  useEffect(() => {
+    debounceInput(searchValue);
+  }, [searchValue]);
+
+  const handleClosePopup = () => {
+    dispatch(setSearchValue(''));
+    setIsSearchActive(false);
   };
 
   return (
@@ -51,9 +88,27 @@ const Header = () => {
           </li>
         </ul>
         <div className={styles.other}>
-          <div>
+          <div className={styles.search}>
             <BsSearch className={styles.searchIcon} />
-            <input type="text" className={styles.search} placeholder="Шукати фільм" />
+            <input
+              ref={inputRef}
+              onChange={(e) => handleSearchQuery(e)}
+              value={searchValue}
+              type="text"
+              className={styles.searchInput}
+              placeholder="Шукати фільм"
+            />
+            <div className={isSearchActive ? styles.searchFilms : styles.searchFilms__hidden}>
+              {searchedFilms.map((filmObj) => (
+                <Link
+                  key={filmObj.id}
+                  onClick={handleClosePopup}
+                  to={`/movie/${filmObj.id}`}
+                  className={styles.searchFilm}>
+                  <h3>{filmObj.original_title}</h3>
+                </Link>
+              ))}
+            </div>
           </div>
           <BsFillBookmarkStarFill className={styles.bookmark} />
           <button className={styles.loginButton}>Вхід</button>
