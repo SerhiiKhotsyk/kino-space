@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../../redux/FilmsSlice';
 import { BsFillBookmarkStarFill } from 'react-icons/bs';
 import { RiArrowGoBackFill } from 'react-icons/ri';
@@ -12,9 +12,14 @@ import MovieSkeleton from './MovieSkeleton';
 const Movie = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const movie = useSelector((state) => state.films.movieDetails);
   const status = useSelector((state) => state.films.status);
   let isLoading = status === 'loading';
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch(fetchMovieDetails(id));
@@ -24,9 +29,9 @@ const Movie = () => {
 
   return (
     <div className={styles.movie}>
-      <Link to="/" className={styles.goBack}>
+      <button className={styles.goBack} onClick={goBack}>
         <RiArrowGoBackFill /> <span>Повернутися назад</span>
-      </Link>
+      </button>
       <div
         className={styles.mainInfo}
         style={{
