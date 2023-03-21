@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { TfiArrowCircleLeft } from 'react-icons/tfi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Categories from '../../components/Categories/Categories';
 import MovieCard from '../../components/MovieCard/MovieCard';
 import MyButton from '../../components/MyButton';
 import { fetchCategories } from '../../redux/CategoriesSlice';
@@ -26,8 +25,6 @@ const TopRatingFilms = () => {
 
   return (
     <div className={styles.films}>
-      <Categories />
-
       <h1 className={styles.films__title}>
         <Link to="/">
           <TfiArrowCircleLeft className={styles.films__titleIcon} />

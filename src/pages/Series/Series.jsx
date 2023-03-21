@@ -3,7 +3,6 @@ import { TfiArrowCircleLeft } from 'react-icons/tfi';
 
 import styles from './Series.module.scss';
 import Categories from '../../components/Categories/Categories';
-import MoviesSlider from '../../components/MoviesSlider/MoviesSlider';
 
 const Series = () => {
   return (
@@ -16,8 +15,6 @@ const Series = () => {
         </Link>
         Всі серіали на <span>kino space</span>
       </h1>
-
-      <MoviesSlider />
     </div>
   );
 };

@@ -1,15 +1,33 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { myAxios } from '../../myAxios';
 
-export const fetchFilms = createAsyncThunk('films/fetchFilms', async (page = 1) => {
-  const { data } = await myAxios.get(`/discover/movie?page=${page}`);
-  return data;
-});
+export const fetchFilms = createAsyncThunk(
+  'films/fetchFilms',
+  async ({ page = 1, sortBy, genreId, year }) => {
+    // console.log('sortBy', sortBy);
+    // console.log('genreId', genreId);
+    // console.log('year', year);
+    const sort_by = `&sort_by=${sortBy}`;
+    const with_genres = `&with_genres=${genreId}`;
+    const with_year = `&year=${year}`;
+    const { data } = await myAxios.get(
+      `/discover/movie?page=${page}${sort_by}${with_genres}${with_year}&vote_count.gte=50`,
+    );
+    return data;
+  },
+);
 
-export const fetchMoreFilms = createAsyncThunk('films/fetchMoreFilms', async (page = 1) => {
-  const { data } = await myAxios.get(`/discover/movie?page=${page}`);
-  return data;
-});
+export const fetchMoreFilms = createAsyncThunk(
+  'films/fetchMoreFilms',
+  async ({ nextPage, sortBy, genreId }) => {
+    const sort_by = `&sort_by=${sortBy}`;
+    const with_genres = `&with_genres=${genreId}`;
+    const { data } = await myAxios.get(
+      `/discover/movie?page=${nextPage}${sort_by}${with_genres}&vote_count.gte=50&year=2022`,
+    );
+    return data;
+  },
+);
 
 export const fetchMovieDetails = createAsyncThunk('films/fetchMovieDetails', async (id) => {
   const { data } = await myAxios.get(`/movie/${id}`);
@@ -19,15 +37,31 @@ export const fetchMovieDetails = createAsyncThunk('films/fetchMovieDetails', asy
 const initialState = {
   films: [],
   movieDetails: {},
-  page: 0,
+  page: 1,
   totalPages: 0,
   status: 'initial',
+  sortBy: 'popularity.desc',
+  genreId: null,
+  year: null,
 };
 
 const filmsSlice = createSlice({
   name: 'films',
   initialState,
-  reducers: {},
+  reducers: {
+    updateFilms(state, action) {
+      state.films = action.payload;
+    },
+    setSortType(state, action) {
+      state.sortBy = action.payload;
+    },
+    setGenreId(state, action) {
+      state.genreId = action.payload;
+    },
+    setYear(state, action) {
+      state.year = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // get all films
     builder.addCase(fetchFilms.pending, (state) => {
@@ -81,3 +115,5 @@ const filmsSlice = createSlice({
 });
 
 export const filmsReducer = filmsSlice.reducer;
+
+export const { updateFilms, setSortType, setGenreId, setYear } = filmsSlice.actions;

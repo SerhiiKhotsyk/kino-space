@@ -2,26 +2,25 @@ import { useEffect } from 'react';
 import { TfiArrowCircleLeft } from 'react-icons/tfi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Categories from '../../components/Categories/Categories';
 import MovieCard from '../../components/MovieCard/MovieCard';
 import MyButton from '../../components/MyButton';
 import { fetchCategories } from '../../redux/CategoriesSlice';
-import { fetchMoreUpcomingFilms, fetchUpcomingFilms } from '../../redux/UpcomingFilmsSlice';
-import styles from './UpcomingFilms.module.scss';
+import { fetchMoreTopViewsFilms, fetchTopViewsFilms } from '../../redux/TopViewsFilmsSlice';
+import styles from './TopViewsFilms.module.scss';
 
-const UpcomingFilms = () => {
+const TopViewsFilms = () => {
   const dispatch = useDispatch();
-  const { films, status, page } = useSelector((state) => state.upcomingFilms);
+  const { films, status, page } = useSelector((state) => state.topViewsFilms);
   const isLoading = status === 'loading';
 
   useEffect(() => {
-    dispatch(fetchUpcomingFilms());
+    dispatch(fetchTopViewsFilms());
     dispatch(fetchCategories());
   }, []);
 
   const handleShowMoreFilms = () => {
     const nextPage = page + 1;
-    dispatch(fetchMoreUpcomingFilms(nextPage));
+    dispatch(fetchMoreTopViewsFilms(nextPage));
   };
 
   return (
@@ -30,7 +29,7 @@ const UpcomingFilms = () => {
         <Link to="/">
           <TfiArrowCircleLeft className={styles.films__titleIcon} />
         </Link>
-        Скоро в кінотеатрах
+        ТОП переглядів
       </h1>
 
       <div className={styles.films__items}>
@@ -52,4 +51,4 @@ const UpcomingFilms = () => {
   );
 };
 
-export default UpcomingFilms;
+export default TopViewsFilms;

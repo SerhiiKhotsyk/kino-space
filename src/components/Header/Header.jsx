@@ -17,7 +17,6 @@ const Header = () => {
   const { searchValue, searchedFilms, status } = useSelector((state) => state.search);
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const isLoading = status === 'loading';
 
   const handleOpenMenu = () => {
     setIsOpen(true);
@@ -25,6 +24,9 @@ const Header = () => {
 
   const handleCloseMenu = () => {
     setIsOpen(false);
+    dispatch(setSearchValue(''));
+    setIsSearchActive(false);
+    window.scrollTo(0, 0);
   };
 
   // обмежує кількість запитів на сервер - при введенні значення в інпут
@@ -54,6 +56,7 @@ const Header = () => {
   const handleClosePopup = () => {
     dispatch(setSearchValue(''));
     setIsSearchActive(false);
+    handleCloseMenu();
   };
 
   return (
@@ -67,22 +70,22 @@ const Header = () => {
       <div className={isOpen ? `${styles.header__right} ${styles.active}` : styles.header__right}>
         <ul className={styles.menu}>
           <li className={styles.menuItem}>
-            <Link className={styles.menuLink} to="/">
+            <Link onClick={handleCloseMenu} className={styles.menuLink} to="/">
               Головна
             </Link>
           </li>
           <li className={styles.menuItem}>
-            <Link className={styles.menuLink} to="/films">
+            <Link onClick={handleCloseMenu} className={styles.menuLink} to="/films">
               Фільми
             </Link>
           </li>
           <li className={styles.menuItem}>
-            <Link className={styles.menuLink} to="/series">
+            <Link onClick={handleCloseMenu} className={styles.menuLink} to="/series">
               Серіали
             </Link>
           </li>
           <li className={styles.menuItem}>
-            <Link className={styles.menuLink} to="/series">
+            <Link onClick={handleCloseMenu} className={styles.menuLink} to="/series">
               Інше
             </Link>
           </li>
@@ -91,6 +94,7 @@ const Header = () => {
           <div className={styles.search}>
             <BsSearch className={styles.searchIcon} />
             <input
+              onSubmit={() => setIsSearchActive(false)}
               ref={inputRef}
               onChange={(e) => handleSearchQuery(e)}
               value={searchValue}

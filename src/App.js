@@ -8,6 +8,7 @@ import Series from './pages/Series/Series';
 import Movie from './pages/Movie/Movie';
 import TopRatingFilms from './pages/TopRatingFilms/TopRatingFilms';
 import UpcomingFilms from './pages/UpcomingFilms/UpcomingFilms';
+import TopViewsFilms from './pages/TopViewsFilms/TopViewsFilms';
 
 export const App = () => {
   return (
@@ -18,7 +19,7 @@ export const App = () => {
         <Route path="/films" element={<Films />} />
         <Route path="/series" element={<Series />} />
         <Route path="/movie/:id" element={<Movie />} />
-        <Route path="/top-views-films" element={<Films />} />
+        <Route path="/top-views-films" element={<TopViewsFilms />} />
         <Route path="/top-rating-films" element={<TopRatingFilms />} />
         <Route path="/upcoming-films" element={<UpcomingFilms />} />
       </Routes>

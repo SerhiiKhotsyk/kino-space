@@ -6,20 +6,20 @@ import BgSlider from '../../components/BgSlider/BgSlider';
 import MoviesSlider from '../../components/MoviesSlider/MoviesSlider';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFilms } from '../../redux/FilmsSlice';
 import { fetchTopRatingFilms } from '../../redux/TopRatingFilmsSlice';
 import { fetchUpcomingFilms } from '../../redux/UpcomingFilmsSlice';
+import { fetchTopViewsFilms } from '../../redux/TopViewsFilmsSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const popularFilms = useSelector((state) => state.films.films);
+  const popularFilms = useSelector((state) => state.topViewsFilms.films);
   const status = useSelector((state) => state.films.status);
   const topRatingFilms = useSelector((state) => state.topRatingFilms.films);
   const upcomingFims = useSelector((state) => state.upcomingFilms.films);
   const isLoading = status === 'loading';
 
   useEffect(() => {
-    dispatch(fetchFilms());
+    dispatch(fetchTopViewsFilms());
     dispatch(fetchTopRatingFilms());
     dispatch(fetchUpcomingFilms());
   }, []);

@@ -4,6 +4,7 @@ import { filmsReducer } from './FilmsSlice';
 import { searchReducer } from './SearchSlice';
 import { topRatingFilmsReducer } from './TopRatingFilmsSlice';
 import { upcomingFilmsReducer } from './UpcomingFilmsSlice';
+import { topViewsFilmsReducer } from './TopViewsFilmsSlice';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     categories: categoriesReducer,
     topRatingFilms: topRatingFilmsReducer,
     upcomingFilms: upcomingFilmsReducer,
+    topViewsFilms: topViewsFilmsReducer,
     search: searchReducer,
   },
 });

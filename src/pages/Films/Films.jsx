@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TfiArrowCircleLeft } from 'react-icons/tfi';
 
@@ -12,17 +12,17 @@ import { fetchCategories } from '../../redux/CategoriesSlice';
 
 const Films = () => {
   const dispatch = useDispatch();
-  const { films, status, page } = useSelector((state) => state.films);
+  const { films, status, page, sortBy, genreId, year } = useSelector((state) => state.films);
   const isLoading = status === 'loading';
 
   useEffect(() => {
-    dispatch(fetchFilms());
+    dispatch(fetchFilms({ page, sortBy, genreId, year }));
     dispatch(fetchCategories());
   }, []);
 
   const handleShowMoreFilms = () => {
     const nextPage = page + 1;
-    dispatch(fetchMoreFilms(nextPage));
+    dispatch(fetchMoreFilms({ nextPage, sortBy, genreId, year }));
   };
 
   return (
